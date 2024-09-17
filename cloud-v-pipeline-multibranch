@@ -35,62 +35,62 @@ pipeline {
                         }
                     }
                 }
-                stage('J-VF1-2')  {
-                    agent {
-                        label 'J-VF1-2'
-                    }
-                    stages {
-                        stage('Compile helloworld.c J-VF1-2') {
-                            steps {
-                                sh'''#!/bin/bash
-                                    gcc ./helloworld.c -o helloworld.o
-                                '''
-                            }
-                        }
-                        stage('Run helloworld.o') {
-                            steps {
-                                sh'''#!/bin/bash
-                                    ./helloworld.o
-                                '''
-                            }
-                        }
-                        stage('Clean Workspace J-VF1-2') {
-                            steps {
-                                sh'''
-                                    rm -rf "${WORKSPACE}"/*
-                                '''
-                            }
-                        }
-                    }
-                }
-                stage('J-VF1-3')  {
-                    agent {
-                        label 'J-VF1-3'
-                    }
-                    stages {
-                        stage('Compile helloworld.c J-VF1-3') {
-                            steps {
-                                sh'''#!/bin/bash
-                                    gcc ./helloworld.c -o helloworld.o
-                                '''
-                            }
-                        }
-                        stage('Run helloworld.o') {
-                            steps {
-                                sh'''#!/bin/bash
-                                    ./helloworld.o
-                                '''
-                            }
-                        }
-                        stage('Clean Workspace J-VF1-3') {
-                            steps {
-                                sh'''
-                                    rm -rf "${WORKSPACE}"/*
-                                '''
-                            }
-                        }
-                    }
-                }
+                //stage('J-VF1-2')  {
+                //    agent {
+                //        label 'J-VF1-2'
+                //    }
+                //    stages {
+                //        stage('Compile helloworld.c J-VF1-2') {
+                //            steps {
+                //                sh'''#!/bin/bash
+                //                    gcc ./helloworld.c -o helloworld.o
+                //                '''
+                //            }
+                //        }
+                //        stage('Run helloworld.o') {
+                //            steps {
+                //                sh'''#!/bin/bash
+                //                    ./helloworld.o
+                //                '''
+                //            }
+                //        }
+                //        stage('Clean Workspace J-VF1-2') {
+                //            steps {
+                //                sh'''
+                //                    rm -rf "${WORKSPACE}"/*
+                //                '''
+                //            }
+                //        }
+                //    }
+                //}
+                //stage('J-VF1-3')  {
+                //    agent {
+                //        label 'J-VF1-3'
+                //    }
+                //    stages {
+                //        stage('Compile helloworld.c J-VF1-3') {
+                //            steps {
+                //                sh'''#!/bin/bash
+                //                    gcc ./helloworld.c -o helloworld.o
+                //                '''
+                //            }
+                //        }
+                //        stage('Run helloworld.o') {
+                //            steps {
+                //                sh'''#!/bin/bash
+                //                    ./helloworld.o
+                //                '''
+                //            }
+                //        }
+                //        stage('Clean Workspace J-VF1-3') {
+                //            steps {
+                //                sh'''
+                //                    rm -rf "${WORKSPACE}"/*
+                //                '''
+                //            }
+                //        }
+                //   }
+                //}
                 // stage('J-VF2-1')  {
                 //     agent {
                 //         label 'J-VF2-1'
