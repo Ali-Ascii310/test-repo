@@ -3,16 +3,16 @@ pipeline {
     agent none
     stages {
         stage('PR branches') {
-            when {
-                branch 'PR-*'
-            }
+//            when {
+  //              branch 'PR-*'
+    //        }
             stages {
                 stage('pioneer-1')  {
                     agent {
-                        label 'J-VF1-1'
+                        label 'pioneer-1'
                     }
                     stages {
-                        stage('Compile helloworld.c J-VF1-1') {
+                        stage('Compile helloworld.c pioneer-1') {
                             steps {
                                 sh'''#!/bin/bash
                                     gcc ./helloworld.c -o helloworld.o
@@ -26,7 +26,7 @@ pipeline {
                                 '''
                             }
                         }
-                        stage('Clean Workspace J-VF1-1') {
+                        stage('Clean Workspace pioneer-1') {
                             steps {
                                 sh'''
                                     rm -rf "${WORKSPACE}"/*
