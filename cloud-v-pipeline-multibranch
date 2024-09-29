@@ -9,7 +9,7 @@ pipeline {
             stages {
                 stage('pioneer-1') {
                     agent {
-                        label 'J-VF1-1'
+                        label 'pioneer-1'
                     }
                     stages {
                         stage('Compile helloworld.c J-VF1-1') {
