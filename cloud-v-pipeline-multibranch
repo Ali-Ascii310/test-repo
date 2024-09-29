@@ -26,6 +26,18 @@ pipeline {
                                 '''
                             }
                         }
+                        stage ('Upload report in github comment'){
+                            def artifactURL = "${env.JENKINS_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/newfile.csv"
+                            def pullRequestID = env.CHANGE_ID  
+                            def repo = 'https://github.com/Ali-Ascii310/test-repo'
+                            withCredentials([string(credentialsId: '091216413289', variable: 'GITHUB_TOKEN')]) {
+                                sh """#!/bin/bash
+                                    curl -H "Authorization: token ${GITHUB_TOKEN}" \
+                                    -d '{"body": "You can view the build artifact [here](${artifactURL})"}' \
+                                    https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments\
+                                """
+                            }
+                        }
                         stage('Clean Workspace J-VF1-1') {
                             steps {
                                 sh'''
