@@ -34,6 +34,10 @@ pipeline {
                                     def pullRequestID = env.CHANGE_ID
                                     def repo = 'Ali-Ascii310/test-repo'  // Adjust this to the correct format
 
+                                    echo "$artifactURL"
+                                    echo "$pullRequestID"
+                                    echo "$repo"
+
                                     withCredentials([string(credentialsId: 'github-token-alitariq1357-new', variable: 'GITHUB_TOKEN')]) {
                                         sh '''#!/bin/bash
                                             curl -L \
