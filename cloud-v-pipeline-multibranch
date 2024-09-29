@@ -7,36 +7,38 @@ pipeline {
                 branch 'PR-*'
             }
             stages {
-                stage('pioneer-1')  {
+                stage('pioneer-1') {
                     agent {
                         label 'J-VF1-1'
                     }
                     stages {
                         stage('Compile helloworld.c J-VF1-1') {
                             steps {
-                                sh'''#!/bin/bash
+                                sh '''#!/bin/bash
                                     gcc ./helloworld.c -o helloworld.o
                                 '''
                             }
                         }
                         stage('Run helloworld.o') {
                             steps {
-                                sh'''#!/bin/bash
+                                sh '''#!/bin/bash
                                     ./helloworld.o
                                 '''
                             }
                         }
-                        stage ('Upload report in github comment'){
-                            steps{
-                                script{
-                                    def artifactURL = "${env.JENKINS_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/newfile.csv"
-                                    def pullRequestID = env.CHANGE_ID  
-                                    def repo = 'https://github.com/Ali-Ascii310/test-repo'
+                        stage('Upload report in github comment') {
+                            steps {
+                                script {
+                                    // Define the variables inside the script block
+                                    def artifactURL = "${env.JENKINS_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/artifact/path/to/your/file"
+                                    def pullRequestID = env.CHANGE_ID
+                                    def repo = 'Ali-Ascii310/test-repo'  // Adjust this to the correct format
+
                                     withCredentials([string(credentialsId: '091216413289', variable: 'GITHUB_TOKEN')]) {
                                         sh """#!/bin/bash
                                             curl -H "Authorization: token ${GITHUB_TOKEN}" \
                                             -d '{"body": "You can view the build artifact [here](${artifactURL})"}' \
-                                            https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments\
+                                            https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments
                                         """
                                     }
                                 }
@@ -44,7 +46,7 @@ pipeline {
                         }
                         stage('Clean Workspace J-VF1-1') {
                             steps {
-                                sh'''
+                                sh '''
                                     rm -rf "${WORKSPACE}"/*
                                 '''
                             }
