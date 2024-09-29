@@ -41,7 +41,7 @@ pipeline {
                                               -H "Authorization: Bearer ${GITHUB_TOKEN}" \
                                               -H "X-GitHub-Api-Version: 2022-11-28" \
                                               -d '{"body": "You can view the build artifact [here]('${artifactURL}')"}' \
-                                              "https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments"
+                                              "https://api.github.com/repos/Ali-Ascii310/test-repo/issues/1/comments"
                                         '''
                                     }
                                 }
