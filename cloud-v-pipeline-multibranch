@@ -26,7 +26,7 @@ pipeline {
                                 '''
                             }
                         }
-                        stage('Upload report in github comment') {
+                        stage('Upload report in GitHub comment') {
                             steps {
                                 script {
                                     // Define the variables inside the script block
@@ -36,9 +36,12 @@ pipeline {
 
                                     withCredentials([string(credentialsId: 'github-token-alitariq1357-new', variable: 'GITHUB_TOKEN')]) {
                                         sh '''#!/bin/bash
-                                            curl -H -vvv "Authorization: token ${GITHUB_TOKEN}" \
-                                            -d '{"body": "You can view the build artifact [here](${artifactURL})"}' \
-                                            https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments
+                                            curl -L \
+                                              -H "Accept: application/vnd.github+json" \
+                                              -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+                                              -H "X-GitHub-Api-Version: 2022-11-28" \
+                                              -d '{"body": "You can view the build artifact [here]('${artifactURL}')"}' \
+                                              "https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments"
                                         '''
                                     }
                                 }
