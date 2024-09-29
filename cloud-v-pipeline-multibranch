@@ -34,12 +34,12 @@ pipeline {
                                     def pullRequestID = env.CHANGE_ID
                                     def repo = 'Ali-Ascii310/test-repo'  // Adjust this to the correct format
 
-                                    withCredentials([string(credentialsId: 'github-token-alitariq1357', variable: 'GITHUB_TOKEN')]) {
-                                        sh """#!/bin/bash
+                                    withCredentials([string(credentialsId: 'github-token-alitariq1357-new', variable: 'GITHUB_TOKEN')]) {
+                                        sh '''#!/bin/bash
                                             curl -H "Authorization: token ${GITHUB_TOKEN}" \
                                             -d '{"body": "You can view the build artifact [here](${artifactURL})"}' \
                                             https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments
-                                        """
+                                        '''
                                     }
                                 }
                             }
