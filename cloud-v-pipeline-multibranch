@@ -26,11 +26,24 @@ pipeline {
                                 '''
                             }
                         }
+                        stage('Generate newfile.csv') {
+                            steps {
+                                // Add the command to generate newfile.csv here
+                                sh '''#!/bin/bash
+                                    echo "This is a test file" > newfile.csv
+                                '''
+                            }
+                        }
+                        stage('Archive Artifact') {
+                            steps {
+                                archiveArtifacts artifacts: 'newfile.csv', fingerprint: true
+                            }
+                        }
                         stage('Upload report in GitHub comment') {
                             steps {
                                 script {
                                     // Define the variables inside the script block
-                                    def artifactURL = "${env.JENKINS_URL}/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/artifact/path/to/your/file"
+                                    def artifactURL = "${env.JENKINS_URL}job/${env.JOB_NAME}/${env.BUILD_NUMBER}/artifact/newfile.csv"
                                     def pullRequestID = env.CHANGE_ID
                                     def repo = 'Ali-Ascii310/test-repo'  // Adjust this to the correct format
 
@@ -45,7 +58,7 @@ pipeline {
                                             -H "Accept: application/vnd.github+json" \
                                             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
                                             -H "X-GitHub-Api-Version: 2022-11-28" \
-                                            https://api.github.com/repos/Ali-Ascii310/test-repo/issues/1/comments \
+                                            https://api.github.com/repos/${repo}/issues/${pullRequestID}/comments \
                                             -d '{"body": "You can view the build artifact [here]('${artifactURL}')"}'
                                         '''
                                     }
@@ -65,4 +78,3 @@ pipeline {
         }
     }
 }
-
